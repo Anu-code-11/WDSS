@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wonji Didimtu Secondary School | Student Registration Portal</title>
+  <style>
+    :root {
+      --primary: #14532d;
+      --primary-light: #166534;
+      --primary-soft: #dcfce7;
+      --accent: #d97706;
+      --accent-hover: #b45309;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --danger: #dc2626;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar */
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), #22c55e);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-text h1 {
+      font-size: 1rem;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    .brand-text span {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+    }
+
+    .nav-cta {
+      background: var(--primary);
+      color: #fff !important;
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .nav-cta:hover {
+      background: var(--primary-light);
+    }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #052e16 0%, #14532d 55%, #166534 100%);
+      color: #fff;
+      padding: 68px 20px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+      color: #fde68a;
+    }
+
+    .hero h2 {
+      font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+      line-height: 1.15;
+      margin-bottom: 16px;
+      font-weight: 800;
+    }
+
+    .hero p {
+      color: #e2e8f0;
+      font-size: 1.05rem;
+      margin-bottom: 28px;
+      max-width: 560px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.96rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s, background 0.2s;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-accent:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-outline-light {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-outline-light:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 18px;
+      padding: 26px;
+    }
+
+    .hero-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      color: #fef3c7;
+    }
+
+    .stat-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+      font-size: 0.94rem;
+    }
+
+    .stat-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    /* Sections */
+    .section {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 64px 20px;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 40px;
+    }
+
+    .section-header h2 {
+      font-size: 1.9rem;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .section-header p {
+      color: var(--muted);
+    }
+
+    /* Requirements Cards */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+    }
+
+    .icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 11px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      margin-bottom: 16px;
+      font-size: 1.2rem;
+    }
+
+    .info-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .info-card ul {
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .info-card li {
+      margin-bottom: 6px;
+    }
+
+    /* Registration Form Card */
+    .form-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      max-width: 820px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .stepper {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: #f1f5f9;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .step-tab {
+      padding: 16px 12px;
+      text-align: center;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--muted);
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .step-tab.active {
+      background: #fff;
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .step-tab.done {
+      color: var(--primary-light);
+    }
+
+    form {
+      padding: 32px;
+    }
+
+    .form-step {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    input, select, textarea {
+      padding: 11px 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #fff;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(20, 83, 45, 0.12);
+    }
+
+    .checkbox-list {
+      display: grid;
+      gap: 10px;
+      background: #f8fafc;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    .checkbox-item input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+    }
+
+    .error-msg {
+      color: var(--danger);
+      font-size: 0.84rem;
+      margin-top: 12px;
+      display: none;
+      font-weight: 500;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 28px;
+      gap: 12px;
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-light);
+    }
+
+    /* Confirmation Slip */
+    #confirmationView {
+      display: none;
+      padding: 36px 32px;
+      text-align: center;
+    }
+
+    .success-badge {
+      width: 64px;
+      height: 64px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 2rem;
+      margin: 0 auto 16px;
+      font-weight: bold;
+    }
+
+    .slip-box {
+      text-align: left;
+      background: #f8fafc;
+      border: 1px dashed #94a3b8;
+      border-radius: 14px;
+      padding: 20px;
+      margin: 22px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      font-size: 0.92rem;
+    }
+
+    .slip-item span {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* Footer */
+    footer {
+      background: #0f172a;
+      color: #cbd5e1;
+      padding: 40px 20px;
+      margin-top: 40px;
+    }
+
+    .footer-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      font-size: 0.9rem;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 820px) {
+      .hero-inner, .grid-3, .form-grid, .slip-box {
+        grid-template-columns: 1fr;
+      }
+
+      nav ul {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: #fff;
+        flex-direction: column;
+        padding: 20px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      nav ul.open {
+        display: flex;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+    }
+
+    @media print {
+      header, .hero, #requirements, footer, .no-print {
+        display: none !important;
+      }
+      .form-wrapper {
+        box-shadow: none;
+        border: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <div class="brand-logo">WD</div>
+        <div class="brand-text">
+          <h1>Wonji Didimtu Secondary School</h1>
+          <span>Online Student Registration Portal</span>
+        </div>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+      <nav>
+        <ul id="navList">
+          <li><a href="#requirements">Requirements</a></li>
+          <li><a href="#register">Register</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#register" class="nav-cta">Apply Now</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <span class="badge">2025/2026 Academic Year Admissions Open</span>
+        <h2>Welcome to Wonji Didimtu Secondary School Registration</h2>
+        <p>
+          Complete your Grade 9–12 enrollment quickly online. Submit student details, select your academic stream, and download your registration slip for final verification at the school registrar office.
+        </p>
+        <div class="hero-actions">
+          <a href="#register" class="btn btn-accent">Start Registration</a>
+          <a href="#requirements" class="btn btn-outline-light">View Requirements</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Key Admission Schedule</h3>
+        <div class="stat-list">
+          <div class="stat-item">
+            <span>Grades Offered</span>
+            <strong>Grades 9 – 12</strong>
+          </div>
+          <div class="stat-item">
+            <span>Streams (11 & 12)</span>
+            <strong>Natural & Social Science</strong>
+          </div>
+          <div class="stat-item">
+            <span>Online Portal</span>
+            <strong>Open 24/7</strong>
+          </div>
+          <div class="stat-item">
+            <span>Office Verification</span>
+            <strong>Mon – Fri (8:30 AM – 4:00 PM)</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Requirements Section -->
+  <section class="section" id="requirements">
+    <div class="section-header">
+      <h2>Admission Guidelines & Requirements</h2>
+      <p>Please prepare the following documents before visiting the school to finalize your registration.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="info-card">
+        <div class="icon-box">9</div>
+        <h3>New Grade 9 Students</h3>
+        <ul>
+          <li>Grade 8 Ministry Certificate / Result Slip</li>
+          <li>2 Recent Passport-Size Photos</li>
+          <li>Parent or Guardian ID Copy</li>
+          <li>Completed Online Registration Slip</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <div class="icon-box">10+</div>
+        <h3>Returning Students (10–12)</h3>
+        <ul>
+          <li>Previous Grade Report Card / Transcript</li>
+          <li>School Clearance Form</li>
+          <li>Stream Selection (for Grades 11 & 12)</li>
+          <li>Updated Guardian Phone Number</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <div class="icon-box">⇄</div>
+        <h3>Transfer Students</h3>
+        <ul>
+          <li>Official Release / Transfer Letter</li>
+          <li>Sealed Academic Transcript</li>
+          <li>Conduct / Discipline Letter</li>
+          <li>Kebele / Parent Identification</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration Portal Section -->
+  <section class="section" id="register" style="padding-top: 20px;">
+    <div class="section-header">
+      <h2>Student Registration Form</h2>
+      <p>Fill out all three steps carefully. Fields marked with * are required.</p>
+    </div>
+
+    <div class="form-wrapper">
+      <div class="stepper" id="stepper">
+        <div class="step-tab active" data-step="1">1. Student Info</div>
+        <div class="step-tab" data-step="2">2. Grade & Stream</div>
+        <div class="step-tab" data-step="3">3. Guardian & Submit</div>
+      </div>
+
+      <form id="regForm" novalidate>
+        <!-- Step 1 -->
+        <div class="form-step active" data-step="1">
+          <div class="form-grid">
+            <div class="form-group full">
+              <label for="fullName">Student Full Name (First, Father's, Grandfather's) *</label>
+              <input type="text" id="fullName" placeholder="e.g., Abebe Kebede Tadesse" required />
+            </div>
+
+            <div class="form-group">
+              <label for="gender">Gender *</label>
+              <select id="gender" required>
+                <option value="">Select gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="dob">Date of Birth *</label>
+              <input type="date" id="dob" required />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Student Phone (Optional)</label>
+              <input type="tel" id="phone" placeholder="09XX XXX XXX" />
+            </div>
+
+            <div class="form-group">
+              <label for="address">Kebele / Residential Area *</label>
+              <input type="text" id="address" placeholder="e.g., Wonji Kuriftu / Gefersa" required />
+            </div>
+          </div>
+
+          <p class="error-msg" id="err1">Please fill in all required student information fields.</p>
+          <div class="form-actions" style="justify-content: flex-end;">
+            <button type="button" class="btn btn-primary" onclick="nextStep(1)">Next: Academic Info →</button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="form-step" data-step="2">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="enrollType">Enrollment Type *</label>
+              <select id="enrollType" required>
+                <option value="">Select type</option>
+                <option value="New Student (Grade 9)">New Student (Grade 9)</option>
+                <option value="Returning Student">Returning Student</option>
+                <option value="Transfer Student">Transfer Student</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="grade">Applying for Grade *</label>
+              <select id="grade" required onchange="toggleStream()">
+                <option value="">Select grade</option>
+                <option value="Grade 9">Grade 9</option>
+                <option value="Grade 10">Grade 10</option>
+                <option value="Grade 11">Grade 11</option>
+                <option value="Grade 12">Grade 12</option>
+              </select>
+            </div>
+
+            <div class="form-group full" id="streamGroup" style="display: none;">
+              <label for="stream">Academic Stream (Required for Grades 11 & 12) *</label>
+              <select id="stream">
+                <option value="">Select academic stream</option>
+                <option value="Natural Science">Natural Science</option>
+                <option value="Social Science">Social Science</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="prevSchool">Previous School Name *</label>
+              <input type="text" id="prevSchool" placeholder="e.g., Wonji Primary / Didimtu Secondary" required />
+            </div>
+
+            <div class="form-group">
+              <label for="avgScore">Last Year Average Score (%)</label>
+              <input type="number" id="avgScore" min="0" max="100" placeholder="e.g., 78" />
+            </div>
+          </div>
+
+          <p class="error-msg" id="err2">Please complete all required grade and school details.</p>
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="prevStep(2)">← Back</button>
+            <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next: Guardian Info →</button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="form-step" data-step="3">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="guardianName">Parent / Guardian Full Name *</label>
+              <input type="text" id="guardianName" placeholder="Full name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="guardianPhone">Guardian Phone Number *</label>
+              <input type="tel" id="guardianPhone" placeholder="e.g., 0911 XXX XXX" required />
+            </div>
+
+            <div class="form-group full">
+              <label>Document Readiness Checklist *</label>
+              <div class="checkbox-list">
+                <label class="checkbox-item">
+                  <input type="checkbox" id="doc1" /> Report Card / Grade 8 Certificate ready
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" id="doc2" /> 2 Passport-size photographs ready
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" id="doc3" /> I confirm all submitted information is accurate
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <p class="error-msg" id="err3">Please enter guardian details and confirm the checklist.</p>
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="prevStep(3)">← Back</button>
+            <button type="submit" class="btn btn-accent">Submit Registration</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Confirmation View -->
+      <div id="confirmationView">
+        <div class="success-badge">✓</div>
+        <h2>Registration Submitted Successfully!</h2>
+        <p style="color: var(--muted); margin-top: 6px;">
+          Please print or screenshot this slip and bring it with your original documents to the Wonji Didimtu Secondary School Registrar Office.
+        </p>
+
+        <div class="slip-box" id="slipDetails"></div>
+
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;" class="no-print">
+          <button type="button" class="btn btn-primary" onclick="window.print()">Print Registration Slip</button>
+          <button type="button" class="btn btn-secondary" onclick="resetPortal()">Register Another Student</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="footer-inner">
+      <div>
+        <strong style="color: #fff; font-size: 1rem;">Wonji Didimtu Secondary School</strong>
+        <p style="margin-top: 6px;">Wonji, East Shewa Zone, Oromia Region</p>
+      </div>
+      <div>
+        <strong style="color: #fff;">Registrar Office</strong>
+        <p style="margin-top: 6px;">Email: registrar@wonjididimtu.edu.et (Placeholder)</p>
+        <p>Phone: +251 XX XXX XXXX (Placeholder)</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navList = document.getElementById('navList');
+    menuBtn.addEventListener('click', () => navList.classList.toggle('open'));
+
+    // Toggle stream field for Grade 11 and 12
+    function toggleStream() {
+      const grade = document.getElementById('grade').value;
+      const streamGroup = document.getElementById('streamGroup');
+      const stream = document.getElementById('stream');
+      if (grade === 'Grade 11' || grade === 'Grade 12') {
+        streamGroup.style.display = 'flex';
+        stream.setAttribute('required', 'true');
+      } else {
+        streamGroup.style.display = 'none';
+        stream.removeAttribute('required');
+        stream.value = '';
+      }
+    }
+
+    function showStep(stepNumber) {
+      document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+      document.querySelector(`.form-step[data-step="${stepNumber}"]`).classList.add('active');
+
+      document.querySelectorAll('.step-tab').forEach(tab => {
+        const s = Number(tab.dataset.step);
+        tab.classList.remove('active', 'done');
+        if (s === stepNumber) tab.classList.add('active');
+        if (s < stepNumber) tab.classList.add('done');
+      });
+    }
+
+    function nextStep(current) {
+      if (current === 1) {
+        const fullName = document.getElementById('fullName').value.trim();
+        const gender = document.getElementById('gender').value;
+        const dob = document.getElementById('dob').value;
+        const address = document.getElementById('address').value.trim();
+        const err = document.getElementById('err1');
+        if (!fullName || !gender || !dob || !address) {
+          err.style.display = 'block';
+          return;
+        }
+        err.style.display = 'none';
+        showStep(2);
+      } else if (current === 2) {
+        const enrollType = document.getElementById('enrollType').value;
+        const grade = document.getElementById('grade').value;
+        const stream = document.getElementById('stream').value;
+        const prevSchool = document.getElementById('prevSchool').value.trim();
+        const err = document.getElementById('err2');
+
+        const needsStream = grade === 'Grade 11' || grade === 'Grade 12';
+        if (!enrollType || !grade || !prevSchool || (needsStream && !stream)) {
+          err.style.display = 'block';
+          return;
+        }
+        err.style.display = 'none';
+        showStep(3);
+      }
+    }
+
+    function prevStep(current) {
+      showStep(current - 1);
+    }
+
+    // Submit form
+    document.getElementById('regForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const guardianName = document.getElementById('guardianName').value.trim();
+      const guardianPhone = document.getElementById('guardianPhone').value.trim();
+      const doc3 = document.getElementById('doc3').checked;
+      const err3 = document.getElementById('err3');
+
+      if (!guardianName || !guardianPhone || !doc3) {
+        err3.style.display = 'block';
+        return;
+      }
+      err3.style.display = 'none';
+
+      const refId = 'WDSS-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+      const grade = document.getElementById('grade').value;
+      const stream = document.getElementById('stream').value || 'General Secondary';
+
+      const slipHTML = `
+        <div class="slip-item"><span>Reference ID</span><strong>${refId}</strong></div>
+        <div class="slip-item"><span>Date Submitted</span><strong>${new Date().toLocaleDateString()}</strong></div>
+        <div class="slip-item"><span>Student Name</span><strong>${escapeHtml(document.getElementById('fullName').value)}</strong></div>
+        <div class="slip-item"><span>Enrollment Type</span><strong>${escapeHtml(document.getElementById('enrollType').value)}</strong></div>
+        <div class="slip-item"><span>Grade & Stream</span><strong>${escapeHtml(grade)} (${escapeHtml(stream)})</strong></div>
+        <div class="slip-item"><span>Guardian Contact</span><strong>${escapeHtml(guardianName)} — ${escapeHtml(guardianPhone)}</strong></div>
+      `;
+
+      document.getElementById('slipDetails').innerHTML = slipHTML;
+      document.getElementById('regForm').style.display = 'none';
+      document.getElementById('stepper').style.display = 'none';
+      document.getElementById('confirmationView').style.display = 'block';
+    });
+
+    function resetPortal() {
+      document.getElementById('regForm').reset();
+      toggleStream();
+      document.getElementById('confirmationView').style.display = 'none';
+      document.getElementById('regForm').style.display = 'block';
+      document.getElementById('stepper').style.display = 'grid';
+      showStep(1);
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>
